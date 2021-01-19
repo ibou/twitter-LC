@@ -1,0 +1,14 @@
+hideManual: true
+watch:
+  directories:
+    - src
+    - tests
+  exclude:
+    - lib
+  fileMask: '*.php'
+  ignoreDotFiles: true
+  ignoreVCS: true
+  ignoreVCSIgnored: false
+phpunit:
+  binaryPath: ./vendor/bin/phpunit
+  arguments: "--stop-on-failure"
