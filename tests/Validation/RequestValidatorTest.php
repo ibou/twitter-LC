@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Validation;
+
 use PHPUnit\Framework\TestCase;
 use Twitter\Http\Request;
 use Twitter\Http\Response;
@@ -11,7 +13,7 @@ class RequestValidatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->validator = new RequestValidator;
+        $this->validator = new RequestValidator();
     }
 
     /** @test */
