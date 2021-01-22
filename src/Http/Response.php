@@ -5,92 +5,72 @@ namespace Twitter\Http;
 class Response
 {
     protected string $content = '';
-    protected int $statusCode = 200;
     protected array $headers = [];
+    protected int $statusCode = 200;
     
-    /**
-     * Response constructor.
-     * @param string $content
-     * @param int $statusCode
-     * @param array|string[] $headers
-     */
     public function __construct(
         string $content = '',
         int $statusCode = 200,
-        array $headers = ['Content-type' => 'text/html']
+        array $headers = ['Content-Type' => 'text/html']
     ) {
         $this->content = $content;
         $this->statusCode = $statusCode;
         $this->headers = $headers;
     }
     
-    
-    /**
-     * @return string
-     */
-    public function getContent(): string
+    public function getHeader(string $headerName): ?string
     {
-        return $this->content;
+        return $this->headers[$headerName] ?? null;
     }
     
-    /**
-     * @param string $content
-     */
-    public function setContent(string $content): void
-    {
-        $this->content = $content;
-    }
-    
-    /**
-     * @return array
-     */
-    public function getHeaders(): array
-    {
-        return $this->headers;
-    }
-    
-    /**
-     * @param array $headers
-     */
-    public function setHeaders(array $headers): void
-    {
-        $this->headers = $headers;
-    }
-    
-    /**
-     * @return int
-     */
     public function getStatusCode(): int
     {
         return $this->statusCode;
     }
     
-    /**
-     * @param int $statusCode
-     */
-    public function setStatusCode(int $statusCode): void
+    public function setStatusCode(int $statusCode)
     {
         $this->statusCode = $statusCode;
     }
     
-    
-    public function send(): void
+    public function getHeaders(): array
     {
+        return $this->headers;
+    }
+    
+    public function setHeaders(array $headers)
+    {
+        $this->headers = $headers;
+    }
+    
+    
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+    
+    public function setContent(string $content)
+    {
+        $this->content = $content;
+    }
+    
+    public function send()
+    {
+        // En têtes (headers)
         /**
          * [
-         *  'Content-type' => 'text/html',
-         *      'lang' =>'fr-FR'
+         *  'Content-Type' => 'text/html',
+         *  'lang' => 'fr-FR
          * ]
          */
         foreach ($this->headers as $key => $value) {
             header("$key: $value");
         }
-        //le Code
+        
+        // Le code
         http_response_code($this->statusCode);
         
-        //Le contenu
-        
+        // Le contenu avec un gros ECHO
         echo $this->content;
     }
-    
 }

@@ -1,18 +1,12 @@
 <?php
 
-
 namespace Twitter\Http;
-
 
 class Request
 {
     protected array $data;
     
-    /**
-     * Request constructor.
-     * @param array $data
-     */
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         $this->data = $data;
     }
@@ -21,6 +15,4 @@ class Request
     {
         return $this->data[$key] ?? null;
     }
-    
-    
 }
