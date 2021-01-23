@@ -41,8 +41,7 @@ class TweetModelTest extends TestCase
         $this->assertEquals($content, $tweet['content']);
     }
 
-    /** @test */
-    public function we_can_delete_a_tweet()
+    public function testWeCanDeleteATweet()
     {
         // Etant donné un tweet existant
         $tweetId = $this->model->save("Ibou", "Un tweet");
@@ -55,7 +54,7 @@ class TweetModelTest extends TestCase
         $this->assertEquals(0, $results);
     }
 
-    /** @test */
+
     public function testWeCanFindTweetWithId()
     {
         // Etant donné un tweet existant
@@ -71,8 +70,8 @@ class TweetModelTest extends TestCase
         $this->assertEquals("Un tweet", $tweet->content);
     }
 
-    /** @test */
-    public function we_cant_find_an_unexisting_tweet()
+
+    public function testWeCantFindAnUnexistingTweet()
     {
         // Quand je recherche un tweet inexistant
         $tweet = $this->model->findById(42);
@@ -81,8 +80,7 @@ class TweetModelTest extends TestCase
         $this->assertNull($tweet);
     }
 
-    /** @test */
-    public function we_can_find_all_tweets()
+    public function testWeCanFindAllTweets()
     {
         // Etant donné un nombre aléatoire de tweets en base de données
         $count = mt_rand(3, 20);
@@ -94,6 +92,7 @@ class TweetModelTest extends TestCase
         $tweets = $this->model->findAll();
 
         // Alors je devrais retrouver autant de tweets que ce qu'il y a dans la base de données
+        $this->assertIsArray($tweets);
         $this->assertCount($count, $tweets);
     }
 }

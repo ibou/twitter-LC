@@ -5,7 +5,7 @@ namespace Twitter\Model;
 use Jajo\JSONDB;
 use stdClass;
 
-class JsonTweetModel
+class JsonTweetModel implements TweetModelInterface
 {
     protected JSONDB $jsonDb;
     
@@ -33,7 +33,7 @@ class JsonTweetModel
         return $uniqId;
     }
     
-    public function findById(string $id): ?stdClass
+    public function findById($id): ?stdClass
     {
         $tweets = $this->jsonDb->select('*')
             ->from('tweets.json')
@@ -45,5 +45,24 @@ class JsonTweetModel
             ->get();
         
         return !empty($tweets) ? (object)$tweets[0] : null;
+    }
+    
+    public function findAll(): array
+    {
+        return $this->jsonDb->select('*')
+            ->from('tweets.json')
+            ->get();
+    }
+    
+    public function delete($id): void
+    {
+        $this->jsonDb->delete()
+            ->from('tweets.json')
+            ->where(
+                [
+                    'id' => $id,
+                ]
+            )
+            ->trigger();
     }
 }
